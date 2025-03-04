@@ -26,7 +26,7 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const { toggleCart } = useContext(CartContext);
+  const { toggleCart, addProduct } = useContext(CartContext);
   const [quantity, setQuantity] = useState<number>(1);
   const handleIncreaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -40,6 +40,10 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     });
   };
   const handleAddToCart = () => {
+    addProduct({
+      ...product,
+      quantity,
+    });
     toggleCart();
   };
   return (
@@ -102,7 +106,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 <ChefHatIcon size={18} />
                 <h4 className="font-semibold">Ingredientes</h4>
               </div>
-              <ul className="list-disc px-5 text-sm text-muted-foreground">
+              <ul className="text-muted-fo list-disc px-5 text-sm text-muted-foreground">
                 {product.ingredients.map((ingredient) => (
                   <li key={ingredient}>{ingredient}</li>
                 ))}
